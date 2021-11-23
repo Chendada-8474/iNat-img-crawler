@@ -27,6 +27,7 @@ inat = pd.read_csv(path)
 
 needed_col = ('id', 'user_login', 'license', 'image_url', 'scientific_name', 'common_name')
 
+# check the columns are right
 lack_col = [i for i in needed_col if i not in inat.columns]
 if len(lack_col) > 0:
     msgbox("Your file lacks columns:\n%s," % ',\n'.join(lack_col))
@@ -53,7 +54,7 @@ for i,j in enumerate(cc):
         cc[i] = NaN
 
 
-
+# caculating the number of images will be downloaded
 checked_sp = []
 ids = []
 
@@ -69,6 +70,7 @@ image_num_check = ccbox('Total %i images will be downloaded\nContinue?' % len(id
 if image_num_check == False:
     sys.exit(0)
 
+# download start
 print("downloading images... It may take a while")
 print("Total_row:", len(ids))
 
@@ -86,7 +88,6 @@ if "iNat-img" in listdir('./'):
 else:
     dir_name = 'iNat-img'
     mkdir('./%s' % dir_name)
-
 
 for index, row in tqdm(inat[inat['id'].isin(ids)].iterrows()):
 
