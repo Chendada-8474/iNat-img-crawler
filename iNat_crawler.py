@@ -25,6 +25,12 @@ while True:
 path = path.replace('\\', '/')
 inat = pd.read_csv(path)
 
+needed_col = ('id', 'user_login', 'license', 'image_url', 'scientific_name', 'common_name')
+
+lack_col = [i for i in needed_col if i not in inat.columns]
+if len(lack_col) > 0:
+    msgbox("Your file lacks columns:\n%s," % ',\n'.join(lack_col))
+    sys.exit(0)
 
 # CC selector
 while True:
